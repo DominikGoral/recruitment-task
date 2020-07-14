@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     },
     ComicsTitle: {
         width: '50%',
-        height: 50,
         backgroundColor: '#fff',
         padding: 10
     },
