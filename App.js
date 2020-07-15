@@ -4,10 +4,13 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import axios from 'axios'
 
 import OneComics from './components/Comics/OneComics/OneComics'
+import Toolbar from './components/Toolbar/Toolbar'
+import DetailsView from './components/Comics/DetailsView/DetailsView'
 
 export default class App extends Component  {
   state = {
-    comics: []
+    comics: [],
+    detailsViewMode: true
   }
 
   componentDidMount() {
@@ -36,13 +39,17 @@ export default class App extends Component  {
   render() {
     return (
       <View style={styles.container}>
-        <FlatList
-          data={this.state.comics}
-          renderItem={({ item }) => (
-            <OneComics ComicsTitle={item.title} ImgUrl={item.img} />
-          )}
-          keyExtractor={(item, index) => index}
-        />
+        <Toolbar detailsView={this.state.detailsViewMode} />
+        {this.state.detailsViewMode  
+          ? <DetailsView />
+          : <FlatList
+              data={this.state.comics}
+              renderItem={({ item }) => (
+                <OneComics ComicsTitle={item.title} ImgUrl={item.img} />
+              )}
+              keyExtractor={(item, index) => index}
+            />
+        }
         <StatusBar style="auto" />
       </View>
     );
@@ -53,5 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginTop: 25,
+    marginBottom: 10
   }
 });
