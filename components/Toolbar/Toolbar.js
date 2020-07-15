@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#489fb5',
         height: 60,
         padding: 10,
+        marginBottom: 10
     },
     ToolbarContainerText: {
         textAlign: 'center',

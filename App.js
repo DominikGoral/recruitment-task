@@ -23,22 +23,26 @@ export default class App extends Component  {
   }
 
   fetchData = async () => {
-    const comicsData = await axios.get('http://xkcd.com/2332/info.0.json')
-    console.log(comicsData.data)
-    const comicsArray = this.state.comics
-    const newArray = [{
-      title: comicsData.data.title,
-      img: comicsData.data.img,
-      num: comicsData.data.num
-    }]
-    const secondComicsData = await axios.get('http://xkcd.com/2331/info.0.json')
-    const secondComicsArray = this.state.comics
-    const secondNewArray = [{
-      title: secondComicsData.data.title,
-      img: secondComicsData.data.img,
-      num: secondComicsData.data.num
-    }]
-    await this.setState({ comics: this.state.comics.concat(newArray, secondNewArray) })
+    let comicsIndex = 0
+    let comicsArray = this.state.comics
+    const comicsData = await axios.get('http://xkcd.com/info.0.json')
+      const newArray = [{
+        title: comicsData.data.title,
+        img: comicsData.data.img,
+        num: comicsData.data.num
+      }]
+    comicsIndex = comicsData.data.num
+    await this.setState({ comics: this.state.comics.concat(comicsArray, newArray)})
+    for(let i = 0; i < 7; i++) {
+      const comicsData = await axios.get(`http://xkcd.com/${comicsIndex - 1}/info.0.json`)
+      const newArray = [{
+        title: comicsData.data.title,
+        img: comicsData.data.img,
+        num: comicsData.data.num
+      }]
+      comicsIndex = comicsData.data.num
+      await this.setState({ comics: this.state.comics.concat(comicsArray, newArray)})
+    }
   }
 
   render() {
@@ -62,7 +66,7 @@ export default class App extends Component  {
                     />
                   </TouchableOpacity>
                 )}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => index.toString()}
               />
           }
         <StatusBar style="auto" />

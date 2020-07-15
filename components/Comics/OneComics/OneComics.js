@@ -17,12 +17,13 @@ const oneComics = props => {
 const styles = StyleSheet.create({
     ComicsItem: {
         height: 120,
-      width: '90%',
-      backgroundColor: '#e9ecef',
-      flexDirection: 'row',
-      padding: 10,
-      marginLeft: '5%',
-      marginBottom: '2%'
+        width: '90%',
+        backgroundColor: '#e9ecef',
+        flexDirection: 'row',
+        padding: 10,
+        marginLeft: '5%',
+        marginBottom: '2%',
+        borderRadius: 5
     },
     ComicsTitle: {
         width: '50%',
