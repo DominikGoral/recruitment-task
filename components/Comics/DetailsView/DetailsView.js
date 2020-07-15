@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 const detailsView = props => {
     return (
         <View style={styles.imgContainer}>
-            <Image style={styles.img} source={{ uri: "https://3.allegroimg.com/s512/1100c7/381fec064f4ab4614ed5412cd643/PLAKATY-OBRAZKI-DZIECIECE-skandynawskie-A3-wybor" }} />
+            <Image style={styles.img} source={{ uri: `${props.img}` }} />
         </View>
     )
 }
