@@ -16,16 +16,16 @@ const oneComics = props => {
 
 const styles = StyleSheet.create({
     ComicsItem: {
-      flex: 0.2,
+        height: 120,
       width: '90%',
-      backgroundColor: '#fff',
+      backgroundColor: '#e9ecef',
       flexDirection: 'row',
       padding: 10,
-      margin: '5%'
+      marginLeft: '5%',
+      marginBottom: '2%'
     },
     ComicsTitle: {
         width: '50%',
-        backgroundColor: '#fff',
         padding: 10
     },
     ComicsTitleTxt: {
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         width: '50%',
     },
     Img: {
+        resizeMode: 'stretch',
         width: '100%',
         height: '100%'
     }
