@@ -40,16 +40,18 @@ export default class App extends Component  {
     return (
       <View style={styles.container}>
         <Toolbar detailsView={this.state.detailsViewMode} />
-        {this.state.detailsViewMode  
-          ? <DetailsView />
-          : <FlatList
-              data={this.state.comics}
-              renderItem={({ item }) => (
-                <OneComics ComicsTitle={item.title} ImgUrl={item.img} />
-              )}
-              keyExtractor={(item, index) => index}
-            />
-        }
+        
+          {this.state.detailsViewMode  
+            ? <DetailsView />
+            : <FlatList
+                data={this.state.comics}
+                renderItem={({ item }) => (
+                  <OneComics ComicsTitle={item.title} ImgUrl={item.img} />
+                )}
+                keyExtractor={(item, index) => index}
+              />
+          }
+        
         <StatusBar style="auto" />
       </View>
     );
@@ -62,5 +64,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 25,
     marginBottom: 10
+  },
+  mainContent: {
+    paddingTop: 10
   }
 });
