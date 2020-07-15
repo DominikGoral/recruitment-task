@@ -1,0 +1,1 @@
+DETAILSVIEW = false

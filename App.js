@@ -18,6 +18,10 @@ export default class App extends Component  {
     this.fetchData()
   }
 
+  changeDetailsMode = () => {
+    this.setState({ detailsViewMode: false })
+  }
+
   fetchData = async () => {
     const comicsData = await axios.get('http://xkcd.com/2332/info.0.json')
     console.log(comicsData.data)
@@ -40,7 +44,7 @@ export default class App extends Component  {
   render() {
     return (
       <View style={styles.container}>
-        <Toolbar detailsView={this.state.detailsViewMode} />
+        <Toolbar detailsView={this.state.detailsViewMode} changeView={this.changeDetailsMode.bind(this)} />
           {this.state.detailsViewMode  
             ? <DetailsView img={this.state.detailsViewImg} />
             : <FlatList

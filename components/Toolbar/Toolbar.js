@@ -7,7 +7,7 @@ class Toolbar extends Component {
         return (
             <View style={styles.ToolbarContainer}>
                 {this.props.detailsView
-                    ? <Icon name='arrowleft' size={40} color="#000" />
+                    ? <Icon name='arrowleft' size={40} color="#000" onPress={() => this.props.changeView()}/>
                     : <Text style={styles.ToolbarContainerText}>XKCD</Text> 
                 }
             </View>
