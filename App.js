@@ -13,7 +13,8 @@ export default class App extends Component  {
     comics: [],
     detailsViewMode: false,
     detailsViewImg: '',
-    lastComicsIndex: 0
+    lastComicsIndex: 0,
+    isLoading: true
   }
 
   componentDidMount() {
@@ -45,6 +46,7 @@ export default class App extends Component  {
       comicsIndex = comicsData.data.num
       await this.setState({ comics: this.state.comics.concat(comicsArray, newArray), lastComicsIndex: comicsIndex})
     }
+    await this.setState({ isLoading: false })
   }
 
   moreData = async() => {
@@ -56,7 +58,11 @@ export default class App extends Component  {
         img: comicsData.data.img,
         num: comicsData.data.num
       }]
-    await this.setState({ lastComicsIndex: comicsData.data.num, comics: this.state.comics.concat(newArray) })
+    await this.setState({ 
+      lastComicsIndex: comicsData.data.num,
+      comics: this.state.comics.concat(newArray),
+      isLoading: false
+    })
     }
   }
 
@@ -82,13 +88,14 @@ export default class App extends Component  {
                   </TouchableOpacity>
                 )}
                 onEndReached={async () => {
+                  await this.setState({ isLoading: true })
                   await this.moreData()
                 }}
                 onEndReachedThreshold="0.7"
                 keyExtractor={(item, index) => index.toString()}
               />
           }
-        <LoadingDot />
+        <LoadingDot isLoading={this.state.isLoading} />
         <StatusBar style="auto" />
       </View>
     );

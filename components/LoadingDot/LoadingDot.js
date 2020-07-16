@@ -7,7 +7,10 @@ import Icon from 'react-native-vector-icons/AntDesign'
 const loadingDots = props => {
     return (
         <View style={styles.dotContainer}>
-            <Icon style={styles.dot} name='sync' size={30} />
+            {props.isLoading === true
+              ? <Icon style={styles.dot} name='sync' size={30} /> 
+              : null
+            }
         </View>
     )
 }
@@ -15,10 +18,11 @@ const loadingDots = props => {
 const styles = StyleSheet.create({
     dotContainer: {
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: 50,
+        paddingTop: 10
     },
     dot: {
-
     }
 });
 
