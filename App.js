@@ -6,12 +6,14 @@ import axios from 'axios'
 import OneComics from './components/Comics/OneComics/OneComics'
 import Toolbar from './components/Toolbar/Toolbar'
 import DetailsView from './components/Comics/DetailsView/DetailsView'
+import LoadingDot from './components/LoadingDot/LoadingDot'
 
 export default class App extends Component  {
   state = {
     comics: [],
     detailsViewMode: false,
-    detailsViewImg: ''
+    detailsViewImg: '',
+    lastComicsIndex: 0
   }
 
   componentDidMount() {
@@ -33,7 +35,7 @@ export default class App extends Component  {
       }]
     comicsIndex = comicsData.data.num
     await this.setState({ comics: this.state.comics.concat(comicsArray, newArray)})
-    for(let i = 0; i < 7; i++) {
+    for(let i = 0; i < 8; i++) {
       const comicsData = await axios.get(`http://xkcd.com/${comicsIndex - 1}/info.0.json`)
       const newArray = [{
         title: comicsData.data.title,
@@ -41,8 +43,26 @@ export default class App extends Component  {
         num: comicsData.data.num
       }]
       comicsIndex = comicsData.data.num
-      await this.setState({ comics: this.state.comics.concat(comicsArray, newArray)})
+      await this.setState({ comics: this.state.comics.concat(comicsArray, newArray), lastComicsIndex: comicsIndex})
     }
+  }
+
+  moreData = async() => {
+    const comicsArray = this.state.comics
+    if(comicsArray.length > 7) {
+      const comicsData = await axios.get(`http://xkcd.com/${this.state.lastComicsIndex - 1}/info.0.json`)
+      const newArray = [{
+        title: comicsData.data.title,
+        img: comicsData.data.img,
+        num: comicsData.data.num
+      }]
+    console.warn('dsaddddd')
+    await this.setState({ comics: this.state.comics.concat(newArray), lastComicsIndex: comicsData.data.num })
+    }
+  }
+
+  onEndReached = () => {
+    console.warn("koniec")
   }
 
   render() {
@@ -66,6 +86,8 @@ export default class App extends Component  {
                     />
                   </TouchableOpacity>
                 )}
+                onEndReached={this.moreData}
+                onEndReachedThreshold="0.5"
                 keyExtractor={(item, index) => index.toString()}
               />
           }
