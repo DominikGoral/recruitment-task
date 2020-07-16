@@ -49,20 +49,15 @@ export default class App extends Component  {
 
   moreData = async() => {
     const comicsArray = this.state.comics
-    if(comicsArray.length > 7) {
+    if(comicsArray.length > 7 && this.state.lastComicsIndex > 1) {
       const comicsData = await axios.get(`http://xkcd.com/${this.state.lastComicsIndex - 1}/info.0.json`)
       const newArray = [{
         title: comicsData.data.title,
         img: comicsData.data.img,
         num: comicsData.data.num
       }]
-    console.warn('dsaddddd')
-    await this.setState({ comics: this.state.comics.concat(newArray), lastComicsIndex: comicsData.data.num })
+    await this.setState({ lastComicsIndex: comicsData.data.num, comics: this.state.comics.concat(newArray) })
     }
-  }
-
-  onEndReached = () => {
-    console.warn("koniec")
   }
 
   render() {
@@ -86,11 +81,14 @@ export default class App extends Component  {
                     />
                   </TouchableOpacity>
                 )}
-                onEndReached={this.moreData}
-                onEndReachedThreshold="0.5"
+                onEndReached={async () => {
+                  await this.moreData()
+                }}
+                onEndReachedThreshold="0.7"
                 keyExtractor={(item, index) => index.toString()}
               />
           }
+        <LoadingDot />
         <StatusBar style="auto" />
       </View>
     );

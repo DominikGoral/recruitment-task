@@ -7,8 +7,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 const loadingDots = props => {
     return (
         <View style={styles.dotContainer}>
-            <Animatable.Text animation="fadeIn">Ziemniaki</Animatable.Text>
-            <Icon style={styles.dot} name='sync' />
+            <Icon style={styles.dot} name='sync' size={30} />
         </View>
     )
 }
